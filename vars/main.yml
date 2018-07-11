@@ -1,0 +1,68 @@
+---
+install_packages:
+  - 'dnsmasq'
+# dns-root-data provides /usr/share/dns/root.ds which, if present, is badly
+# mis-parsed by /etc/init.d/dnsmasq, as of an update to the init script on
+# 2018-06-26, from Debian.  It looks like there's a history of this bad
+# interaction, and the solution in the past, for some, has been to just remove
+# dns-root-data.
+remove_packages:
+  - 'dns-root-data'
+create_files:
+  - owner:              'pi'
+    group:              'pi'
+    mode:               '0700'
+    path:               '~pi/.ssh'
+    state:              'directory'
+install_files:
+  - owner:              'root'
+    group:              'root'
+    mode:               '0755'
+    src:                "{{ role_path }}/files/bin/update_dns"
+    dest:               '/usr/local/bin/update_dns'
+  - owner:              'root'
+    group:              'root'
+    mode:               '0755'
+    src:                "{{ role_path }}/files/bin/update_dns_cronjob"
+    dest:               '/usr/local/bin/update_dns_cronjob'
+  - owner:              'root'
+    group:              'root'
+    mode:               '0644'
+    src:                "{{ role_path }}/files/cron.d/update_dns"
+    dest:               '/etc/cron.d/update_dns'
+  - owner:              'root'
+    group:              'root'
+    mode:               '0644'
+    src:                "{{ role_path }}/files/conf/dnsmasq.conf"
+    dest:               '/etc/dnsmasq.conf'
+  - owner:              'root'
+    group:              'root'
+    mode:               '0644'
+    src:                "{{ role_path }}/files/conf/default.dnsmasq"
+    dest:               '/etc/default/dnsmasq'
+  - owner:              'pi'
+    group:              'pi'
+    mode:               '0600'
+    src:                "{{ role_path }}/../{{ inventory_hostname }}/files/ssh_keys/pi.known_hosts"
+    dest:               '~pi/.ssh/known_hosts'
+template_files:
+  - owner:              'root'
+    group:              'root'
+    mode:               '0644'
+    src:                "{{ role_path }}/templates/hosts.j2"
+    dest:               '/etc/hosts'
+initialize_files:
+  - owner:              'pi'
+    group:              'pi'
+    mode:               '0644'
+    dest:               '/var/log/update_dns.log'
+  - owner:              'pi'
+    group:              'pi'
+    mode:               '0644'
+    dest:               '/var/log/update_dns.ret'
+enable_services:
+  - 'dnsmasq'
+start_services:
+  - 'dnsmasq'
+restart_services:
+  - 'dnsmasq'
