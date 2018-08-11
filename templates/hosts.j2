@@ -5,6 +5,7 @@
 {% for h in groups['internal-dns-targets'] %}
 {% if hostvars[h].ip_address is defined %}
 {{ hostvars[h].ip_address }}        {{ h }} {{ h }}.neuronpointer.net {% if hostvars[h].aliases is defined %}{% for a in hostvars[h].aliases %} {{ a }} {{ a }}.neuronpointer.net{% endfor %}{% endif %}
+
 {% endif %}
 {% endfor %}
 
