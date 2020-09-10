@@ -1,7 +1,8 @@
 domain-needed
 bogus-priv
-interface=eth0
-no-dhcp-interface=eth0
+interface=lo
+no-dhcp-interface=lo
+bind-interfaces
 local=/{{ domain }}/
 domain={{ domain }}
 #address=/.neuronpointer.net/neuronpointer.net/192.168.11.54

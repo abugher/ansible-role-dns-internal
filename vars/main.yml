@@ -1,13 +1,11 @@
 ---
 install_packages:
   - 'dnsmasq'
-# dns-root-data provides /usr/share/dns/root.ds which, if present, is badly
-# mis-parsed by /etc/init.d/dnsmasq, as of an update to the init script on
-# 2018-06-26, from Debian.  It looks like there's a history of this bad
-# interaction, and the solution in the past, for some, has been to just remove
-# dns-root-data.
-remove_packages:
-  - 'dns-root-data'
+  - 'stubby'
+user_groups:
+  - 'stubby'
+users:
+  - 'stubby'
 create_files:
   - owner:              'pi'
     group:              'pi'
@@ -24,6 +22,11 @@ create_files:
     mode:               '0644'
     state:              'touch'
     path:               '/var/log/update_dns.ret'
+  - owner:              'stubby'
+    group:              'stubby'
+    mode:               '0644'
+    state:              'touch'
+    path:               '/var/log/stubby.log'
 install_files:
   - owner:              'root'
     group:              'root'
@@ -45,6 +48,16 @@ install_files:
     mode:               '0644'
     src:                "{{ role_path }}/files/conf/default.dnsmasq"
     dest:               '/etc/default/dnsmasq'
+  - owner:              'root'
+    group:              'root'
+    mode:               '0644'
+    src:                "{{ role_path }}/files/conf/stubby.yml"
+    dest:               '/etc/stubby/stubby.yml'
+  - owner:              'root'
+    group:              'root'
+    mode:               '0755'
+    src:                "{{ role_path }}/files/init.d/stubby"
+    dest:               '/etc/init.d/stubby'
 template_files:
   - owner:              'root'
     group:              'root'
@@ -56,9 +69,20 @@ template_files:
     mode:               '0644'
     src:                "{{ role_path }}/templates/conf/dnsmasq.conf.j2"
     dest:               '/etc/dnsmasq.conf'
+adjust_files:
+  - owner:              'root'
+    group:              'stubby'
+    mode:               '0754'
+    path:               '/usr/bin/stubby'
 enable_services:
   - 'dnsmasq'
+  - 'stubby'
+capabilities:
+  - capability:                 'cap_net_bind_service+ep'
+    path:                       '/usr/bin/stubby'
 start_services:
   - 'dnsmasq'
+  - 'stubby'
 restart_services:
   - 'dnsmasq'
+  - 'stubby'
