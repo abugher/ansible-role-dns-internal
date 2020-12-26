@@ -1,0 +1,12 @@
+#!/bin/bash
+
+external_ip=$(
+  dig +short myip.opendns.com @resolver1.opendns.com
+)
+
+if echo $external_ip | grep -qE '[^0-9.]|.{16}'; then
+  echo "Error:  Invalid IP address:  ${external_ip}" >&2
+  exit 1
+fi
+
+ssh neuronpointer@{{ groups['mail_server'][0] }}.{{ domain }} 'echo '$external_ip' > /etc/{{ groups['dmz'][0] }}.{{ domain }}'

@@ -21,11 +21,6 @@ install_files:
   - owner:              'root'
     group:              'root'
     mode:               '0755'
-    src:                "{{ role_path }}/files/bin/update_dns"
-    dest:               '/usr/local/bin/update_dns'
-  - owner:              'root'
-    group:              'root'
-    mode:               '0755'
     src:                "{{ role_path }}/files/bin/update_dns_cronjob"
     dest:               '/usr/local/bin/update_dns_cronjob'
   - owner:              'root'
@@ -39,6 +34,11 @@ install_files:
     src:                "{{ role_path }}/files/conf/default.dnsmasq"
     dest:               '/etc/default/dnsmasq'
 template_files:
+  - owner:              'root'
+    group:              'root'
+    mode:               '0755'
+    src:                "{{ role_path }}/templates/bin/update_dns.j2"
+    dest:               '/usr/local/bin/update_dns'
   - owner:              'root'
     group:              'root'
     mode:               '0644'
