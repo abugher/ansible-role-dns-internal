@@ -1,12 +1,12 @@
 #!/bin/bash
 
-neuronpointer_ip=$(
+neuron_external_ip=$(
   dig +short myip.opendns.com @resolver1.opendns.com
 )
 
-if echo $neuronpointer_ip | grep -qE '[^0-9.]|.{16}'; then
-  echo "Error:  Invalid IP address:  ${neuronpointer_ip}" >&2
+if echo $neuron_external_ip | grep -qE '[^0-9.]|.{16}'; then
+  echo "Error:  Invalid IP address:  ${neuron_external_ip}" >&2
   exit 1
 fi
 
-ssh neuronpointer@neuron-mail.neuronpointer.net 'echo '$neuronpointer_ip' > /etc/neuronpointer.net'
+ssh neuronpointer@neuron-mail.neuronpointer.net 'echo '$neuron_external_ip' > /etc/neuron.neuronpointer.net'
