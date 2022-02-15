@@ -1,19 +1,18 @@
 ---
 install_packages:
   - 'dnsmasq'
+user_groups:
+  - 'updatedns'
+users:
+  - 'updatedns'
 create_files:
-  - owner:              'pi'
-    group:              'pi'
-    mode:               '0700'
-    path:               '~pi/.ssh'
-    state:              'directory'
-  - owner:              'pi'
-    group:              'pi'
+  - owner:              'updatedns'
+    group:              'root'
     mode:               '0644'
     state:              'touch'
     path:               '/var/log/update_dns.log'
-  - owner:              'pi'
-    group:              'pi'
+  - owner:              'updatedns'
+    group:              'root'
     mode:               '0644'
     state:              'touch'
     path:               '/var/log/update_dns.ret'
