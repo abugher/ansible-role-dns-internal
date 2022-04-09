@@ -1,19 +1,19 @@
 stream {
   server {
-    listen                  *:853 ssl;
-    proxy_pass              127.0.0.1:53;
-    proxy_connect_timeout   1s;
-    preread_timeout         2s;
+    listen                      *:853 ssl;
+    proxy_pass                  127.0.0.1:53;
+    proxy_connect_timeout       1s;
+    preread_timeout             2s;
   }
 
 
-  ssl_certificate /etc/ssl/certs/{{ inventory_hostname }}.pem;
-  ssl_certificate_key /etc/ssl/private/{{ inventory_hostname }}.pem;
+  ssl_certificate               /etc/ssl/certs/chain.pem;
+  ssl_certificate_key           /etc/ssl/private/{{ inventory_hostname }}.pem;
 
-  ssl_session_timeout             1d;
-  ssl_session_tickets             off;
+  ssl_session_timeout           1d;
+  ssl_session_tickets           off;
 
-  ssl_session_cache               shared:dns-over-tls:10m;
+  ssl_session_cache             shared:dns-over-tls:10m;
 
   log_format dns-over-tls '$remote_addr\t-\t-\t[$time_local]\t$ssl_protocol\t'
     '$ssl_session_reused\t$ssl_cipher\t$ssl_server_name\t$status\t'
