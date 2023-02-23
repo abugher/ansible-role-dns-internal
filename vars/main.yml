@@ -79,3 +79,4 @@ start_services:
 restart_services:
   - 'dnsmasq'
   - 'nginx'
+  - 'nginx'
