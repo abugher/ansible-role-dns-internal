@@ -45,7 +45,7 @@ install_files:
   - owner:              'root'
     group:              'updatedns'
     mode:               '0640'
-    src:                "../../../sensitive_ansible/inventory/hosts/{{ groups['dns_internal'][0] }}/users/updatedns/files/ssh_keys/id_rsa"
+    src:                "../../../sensitive-ansible/inventory/hosts/{{ groups['dns_internal'][0] }}/users/updatedns/files/ssh_keys/id_rsa"
     dest:               '~updatedns/.ssh/id_rsa'
 template_files:
   - owner:              'root'
