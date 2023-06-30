@@ -40,12 +40,12 @@ install_files:
   - owner:              'root'
     group:              'root'
     mode:               '0644'
-    src:                "../../inventory/hosts/{{ groups['dns_internal'][0] }}/users/updatedns/files/ssh_keys/id_rsa.pub"
+    src:                "../../inventory/hosts/{{ groups['dns-internal'][0] }}/users/updatedns/files/ssh_keys/id_rsa.pub"
     dest:               '~updatedns/.ssh/id_rsa.pub'
   - owner:              'root'
     group:              'updatedns'
     mode:               '0640'
-    src:                "../../../sensitive-ansible/inventory/hosts/{{ groups['dns_internal'][0] }}/users/updatedns/files/ssh_keys/id_rsa"
+    src:                "../../../sensitive-ansible/inventory/hosts/{{ groups['dns-internal'][0] }}/users/updatedns/files/ssh_keys/id_rsa"
     dest:               '~updatedns/.ssh/id_rsa'
 template_files:
   - owner:              'root'
