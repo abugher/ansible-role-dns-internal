@@ -9,4 +9,4 @@ if echo $external_ip | grep -qE '[^0-9.]|.{16}'; then
   exit 1
 fi
 
-ssh neuronpointer@{{ groups['mail_server'][0] }}.{{ domain }} 'echo '$external_ip' > /etc/{{ groups['dmz'][0] }}.{{ domain }}'
+ssh neuronpointer@{{ groups['mail-server'][0] }}.{{ domain }} 'echo '$external_ip' > /etc/{{ groups['dmz'][0] }}.{{ domain }}'

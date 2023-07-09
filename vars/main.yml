@@ -69,7 +69,7 @@ template_files:
     src:                "templates/conf/dns-over-tls.conf.j2"
     dest:               '/etc/nginx/conf.trailing.d/dns-over-tls.conf'
 known_hosts:
-  - "{{ groups['dns_external'][0] }}"
+  - "{{ groups['dns-external'][0] }}"
 enable_services:
   - 'dnsmasq'
   - 'nginx'
