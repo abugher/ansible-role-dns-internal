@@ -2,13 +2,14 @@ domain-needed
 bogus-priv
 interface=eth0
 no-dhcp-interface=eth0
-#bind-interfaces
-local=/{{ domain }}/
 domain={{ domain }}
-#address=/.neuronpointer.net/neuronpointer.net/192.168.11.54
-# dns.google
-#server=8.8.8.8
-#server=8.8.4.4
-# dns.adguard.com
-server=94.140.15.15
-server=94.140.14.14
+server=/{{ domain }}/
+{% for server in groups['dns-third-party'] %}
+server={{ hostvars[server].ip_address }}
+{% endfor %}
+{% for target in groups['external-dns-targets'] %}
+{% for server in groups['dns-third-party'] %}
+server=/{{ target }}.{{ domain }}/{{ hostvars[server].ip_address }}
+{% endfor %}
+{% endfor %}
+
