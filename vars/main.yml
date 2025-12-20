@@ -1,6 +1,7 @@
 ---
 install_packages:
   - 'dnsmasq'
+  - 'bind9-dnsutils'            # For dig.
 user_groups:
   - 'updatedns'
 users:
