@@ -74,10 +74,9 @@ known_hosts:
 enable_services:
   - 'dnsmasq'
   - 'nginx'
-start_services:
-  - 'dnsmasq'
-  - 'nginx'
 restart_services:
   - 'dnsmasq'
   - 'nginx'
+start_services:
+  - 'dnsmasq'
   - 'nginx'
