@@ -8,6 +8,6 @@
 - include_tasks:        'tasks/common/known_hosts.yml'
 - include_tasks:        'tasks/common/enable_services.yml'
 - include_tasks:        'tasks/common/restart_services.yml'
-- include_tasks:        'tasks/common/start_services.yml'
   when:                 install_files_result.changed
                         or template_files_result.changed
+- include_tasks:        'tasks/common/start_services.yml'
